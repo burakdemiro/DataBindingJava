@@ -128,4 +128,12 @@ public class Urun implements Parcelable {
         dest.writeFloat(degerlendirmeNotu);
         dest.writeInt(seriNumarasi);
     }
+
+    public boolean kampanyaliSatisVarmi() {
+        if (kampanyaliFiyat > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
