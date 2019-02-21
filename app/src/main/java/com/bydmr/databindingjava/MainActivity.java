@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.bydmr.databindingjava.databinding.ActivityMainBinding;
+import com.bydmr.databindingjava.fragments.MainFragment;
 import com.bydmr.databindingjava.fragments.UrunDetayFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,9 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 
-        UrunDetayFragment urunDetayFragment = new UrunDetayFragment();
+        /*UrunDetayFragment urunDetayFragment = new UrunDetayFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.anaContainer, urunDetayFragment, "urunDetayFragment");
+        transaction.commit();*/
+
+        MainFragment mainFragment = new MainFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.anaContainer, mainFragment, "mainFragment");
         transaction.commit();
     }
 }
