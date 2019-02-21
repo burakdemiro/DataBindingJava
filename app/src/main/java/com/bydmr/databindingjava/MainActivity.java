@@ -17,9 +17,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        Ogrenci ogr1 = new Ogrenci("Kamil", 5);
-
-        mainBinding.setOgrenci(ogr1);
     }
 }
