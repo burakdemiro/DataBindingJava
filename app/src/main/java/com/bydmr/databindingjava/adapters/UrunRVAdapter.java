@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.bydmr.databindingjava.R;
 import com.bydmr.databindingjava.databinding.TekUrunBinding;
+import com.bydmr.databindingjava.interfaces.IMainActivity;
 import com.bydmr.databindingjava.models.Urun;
 
 import java.util.List;
@@ -19,10 +20,13 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
 
     private Context context;
     private List<Urun> tumUrunler;
+    IMainActivity iMainActivity;
 
     public UrunRVAdapter(Context context, List<Urun> tumUrunler) {
         this.context = context;
         this.tumUrunler = tumUrunler;
+
+        iMainActivity = (IMainActivity) context;
     }
 
     @NonNull
@@ -38,6 +42,7 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.binding.setUrun(tumUrunler.get(position));
+        holder.binding.setMainInterface(iMainActivity);
         holder.binding.executePendingBindings(); // bir sonraki satırın genişliğini bilmesi için oluşturur
     }
 

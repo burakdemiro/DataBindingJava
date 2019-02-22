@@ -6,12 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.bydmr.databindingjava.databinding.ActivityMainBinding;
 import com.bydmr.databindingjava.fragments.MainFragment;
 import com.bydmr.databindingjava.fragments.UrunDetayFragment;
+import com.bydmr.databindingjava.interfaces.IMainActivity;
+import com.bydmr.databindingjava.models.Urun;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivity {
 
     // Pascal versiyon adlandırma
     // activity_urunler -> ActivityUrunlerBinding üretilir
@@ -27,14 +30,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 
-        /*UrunDetayFragment urunDetayFragment = new UrunDetayFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.anaContainer, urunDetayFragment, "urunDetayFragment");
-        transaction.commit();*/
-
         MainFragment mainFragment = new MainFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.anaContainer, mainFragment, "mainFragment");
+        transaction.commit();
+    }
+
+    @Override
+    public void secilenUruneGit(Urun urun) {
+        Log.i("etiket", urun.getBaslik());
+
+        UrunDetayFragment urunDetayFragment = new UrunDetayFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("secilen_urun", urun);
+
+        urunDetayFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.anaContainer, urunDetayFragment, "urunDetayFragment");
+        transaction.addToBackStack("urunDetayFragment");
         transaction.commit();
     }
 }

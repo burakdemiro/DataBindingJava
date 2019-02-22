@@ -12,11 +12,16 @@
         <variable
             name="urun"
             type="com.bydmr.databindingjava.models.Urun" />
+        
+        <variable
+            name="mainInterface"
+            type="com.bydmr.databindingjava.interfaces.IMainActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> mainInterface.secilenUruneGit(urun)}">
 
         <RatingBar
             android:id="@+id/ratingBarDegerlendirme"

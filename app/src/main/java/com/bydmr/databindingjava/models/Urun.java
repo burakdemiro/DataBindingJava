@@ -136,4 +136,8 @@ public class Urun implements Parcelable {
             return false;
         }
     }
+
+    public String miktariAlveStringeCevir(int miktar) {
+        return "Miktar : "+miktar;
+    }
 }
