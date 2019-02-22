@@ -58,4 +58,10 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
 
         }
     }
+
+    public void listeyiYenile(List<Urun> yeniListe) {
+        tumUrunler.clear();
+        tumUrunler.addAll(yeniListe);
+        notifyDataSetChanged();
+    }
 }

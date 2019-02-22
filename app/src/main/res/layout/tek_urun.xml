@@ -23,8 +23,9 @@
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:rating="@{urun.degerlendirmeNotu}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvFiyat"
             app:layout_constraintTop_toBottomOf="@+id/tvFiyat" />
 
@@ -33,8 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="(142)"
+            android:text="@{String.valueOf(urun.degerlendirmeSayisi)}"
             android:textStyle="bold"
+            tools:text="(142)"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBarDegerlendirme"
             app:layout_constraintStart_toEndOf="@+id/ratingBarDegerlendirme"
             app:layout_constraintTop_toTopOf="@+id/ratingBarDegerlendirme" />
@@ -45,12 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Başlık"
+            android:text="@{urun.baslik}"
             android:textColor="@color/colorAccent"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kırmızı Lamba" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -61,48 +64,37 @@
             android:layout_marginEnd="8dp"
             android:scaleType="fitCenter"
             android:src="@{urun.urunResim}"
+            tools:src="@drawable/red_lamp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUrunBaslik" />
-
-        <TextView
-            android:id="@+id/tvUrunAciklama"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{urun.aciklama}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/tvFiyat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="22"
+            android:text="@{urun.kampanyaliSatisVarmi() ? String.valueOf(urun.kampanyaliFiyat) : String.valueOf(urun.fiyat)}"
             android:textColor="@color/colorAccent"
-            android:textSize="24sp"
+            android:textSize="21sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvUrunAciklama" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:text="22" />
 
         <TextView
             android:id="@+id/tvOrijinalFiyat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="25"
-            android:textSize="18sp"
+            android:text="@{String.valueOf(urun.fiyat)}"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="@{urun.kampanyaliSatisVarmi() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tvFiyat"
             app:layout_constraintStart_toEndOf="@+id/tvFiyat"
-            app:layout_constraintTop_toTopOf="@+id/tvFiyat" />
+            app:layout_constraintTop_toTopOf="@+id/tvFiyat"
+            tools:text="30" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
