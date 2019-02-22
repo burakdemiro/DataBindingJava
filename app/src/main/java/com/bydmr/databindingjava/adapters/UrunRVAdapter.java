@@ -53,7 +53,7 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // rootLayout'u binding'e bağlıyoruz sonrasında ürün nesnesi gönderdiğimde atanmış oluyor
+            // Daha önceden inflate edilmiş ve veri atamak istenilen şeyler için bind metotu kullanılıyor
             binding = DataBindingUtil.bind(itemView);
 
         }
