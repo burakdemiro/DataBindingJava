@@ -10,8 +10,9 @@ import com.bydmr.databindingjava.R;
 import com.bydmr.databindingjava.databinding.FragmentMainBinding;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     FragmentMainBinding mainBinding;
 
@@ -20,7 +21,13 @@ public class MainFragment extends Fragment {
 
         mainBinding = FragmentMainBinding.inflate(inflater);
 
+        mainBinding.swipeRefreshLayout.setOnRefreshListener(this);
+
         return mainBinding.getRoot();
     }
 
+    @Override
+    public void onRefresh() {
+
+    }
 }
