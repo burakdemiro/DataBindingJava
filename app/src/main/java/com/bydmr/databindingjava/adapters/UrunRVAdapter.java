@@ -9,6 +9,7 @@ import com.bydmr.databindingjava.R;
 import com.bydmr.databindingjava.databinding.TekUrunBinding;
 import com.bydmr.databindingjava.interfaces.IMainActivity;
 import com.bydmr.databindingjava.models.Urun;
+import com.bydmr.databindingjava.models.UrunViewModel;
 
 import java.util.List;
 
@@ -41,7 +42,10 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.binding.setUrun(tumUrunler.get(position));
+        UrunViewModel urunViewModel = new UrunViewModel();
+        urunViewModel.setUrun(tumUrunler.get(position));
+
+        holder.binding.setUrunViewModel(urunViewModel);
         holder.binding.setMainInterface(iMainActivity);
         holder.binding.executePendingBindings(); // bir sonraki satırın genişliğini bilmesi için oluşturur
     }

@@ -11,12 +11,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="urun"
-            type="com.bydmr.databindingjava.models.Urun" />
-
-        <variable
-            name="miktar"
-            type="int" />
+            name="urunViewModel"
+            type="com.bydmr.databindingjava.models.UrunViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +25,7 @@
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:rating="@{urun.degerlendirmeNotu}"
+            android:rating="@{urunViewModel.urun.degerlendirmeNotu}"
             app:layout_constraintBottom_toBottomOf="@+id/tvDegerlendirmeSayisi"
             app:layout_constraintEnd_toStartOf="@+id/tvDegerlendirmeSayisi"
             app:layout_constraintTop_toTopOf="@+id/tvDegerlendirmeSayisi"
@@ -41,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{String.valueOf(urun.degerlendirmeSayisi)}"
+            android:text="@{String.valueOf(urunViewModel.urun.degerlendirmeSayisi)}"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{urun.baslik}"
+            android:text="@{urunViewModel.urun.baslik}"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -69,10 +65,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:scaleType="fitCenter"
+            android:visibility="@{urunViewModel.resimYuklendiMi ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUrunBaslik"
-            app:resimGoster="@{urun.urunResim}"
+            app:resimGoster="@{urunViewModel.urun.urunResim}"
+            app:requrestListener="@{urunViewModel.requestListener}"
             tools:src="@drawable/red_lamp" />
 
         <TextView
@@ -82,7 +80,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{urun.aciklama}"
+            android:text="@{urunViewModel.urun.aciklama}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{urun.kampanyaliSatisVarmi() ? String.valueOf(urun.kampanyaliFiyat) : String.valueOf(urun.fiyat)}"
+            android:text="@{urunViewModel.urun.kampanyaliSatisVarmi() ? String.valueOf(urunViewModel.urun.kampanyaliFiyat) : String.valueOf(urunViewModel.urun.fiyat)}"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -105,13 +103,14 @@
 
         <TextView
             android:id="@+id/tvOrijinalFiyat"
+            android:background="@drawable/ustunu_ciz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(urun.fiyat)}"
+            android:text="@{String.valueOf(urunViewModel.urun.fiyat)}"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:visibility="@{urun.kampanyaliSatisVarmi() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{urunViewModel.urun.kampanyaliSatisVarmi() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tvFiyat"
             app:layout_constraintStart_toEndOf="@+id/tvFiyat"
             app:layout_constraintTop_toTopOf="@+id/tvFiyat"
@@ -123,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{urun.miktariAlveStringeCevir(miktar)}"
+            android:text="@{urunViewModel.urun.miktariAlveStringeCevir(urunViewModel.miktar)}"
             app:icon="@drawable/ic_miktar_sec"
             app:layout_constraintStart_toStartOf="@+id/tvFiyat"
             app:layout_constraintTop_toBottomOf="@+id/tvFiyat" />
@@ -139,6 +138,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnMiktar" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{urunViewModel.resimYuklendiMi ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
