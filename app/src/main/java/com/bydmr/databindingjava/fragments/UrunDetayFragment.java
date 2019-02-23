@@ -17,16 +17,13 @@ import androidx.fragment.app.Fragment;
 
 public class UrunDetayFragment extends Fragment {
 
-    FragmentUrunDetayBinding fragmentUrunDetayBinding;
+    public FragmentUrunDetayBinding fragmentUrunDetayBinding;
     Urun gelenUrun;
-    IMainActivity iMainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         fragmentUrunDetayBinding = FragmentUrunDetayBinding.inflate(inflater);
-
-        iMainActivity = (IMainActivity) getContext();
 
         if (getArguments() != null) {
             gelenUrun = getArguments().getParcelable("secilen_urun");
@@ -37,7 +34,7 @@ public class UrunDetayFragment extends Fragment {
             urunViewModel.setResimYuklendiMi(false);
 
             fragmentUrunDetayBinding.setUrunViewModel(urunViewModel);
-            fragmentUrunDetayBinding.setMainInterface(iMainActivity);
+            fragmentUrunDetayBinding.setMainInterface((IMainActivity) getActivity());
         }
 
         return fragmentUrunDetayBinding.getRoot(); // zaten o view öğesini aynı şekilde geri döndürmüş oluyor

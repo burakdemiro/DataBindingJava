@@ -59,4 +59,15 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         MiktarDialogFragment miktarDialogFragment = new MiktarDialogFragment();
         miktarDialogFragment.show(getSupportFragmentManager(), "miktarDialogFragment");
     }
+
+    @Override
+    public void setMiktar(int miktar) {
+
+        UrunDetayFragment urunDetayFragment = (UrunDetayFragment) getSupportFragmentManager().findFragmentByTag("urunDetayFragment");
+
+        if (urunDetayFragment != null) {
+
+            urunDetayFragment.fragmentUrunDetayBinding.getUrunViewModel().setMiktar(miktar);
+        }
+    }
 }
