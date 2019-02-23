@@ -6,13 +6,16 @@
     android:id="@+id/layout">
 
     <data>
-
         <!--Sınıfları kullanabilmek için import etmen lazım -->
         <import type="android.view.View" />
 
         <variable
             name="urunViewModel"
             type="com.bydmr.databindingjava.models.UrunViewModel" />
+
+        <variable
+            name="mainInterface"
+            type="com.bydmr.databindingjava.interfaces.IMainActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,6 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{urunViewModel.urun.miktariAlveStringeCevir(urunViewModel.miktar)}"
+            tools:text="Miktar: 1"
+            android:onClick="@{() -> mainInterface.miktarDialogBaslat()}"
             app:icon="@drawable/ic_miktar_sec"
             app:layout_constraintStart_toStartOf="@+id/tvFiyat"
             app:layout_constraintTop_toBottomOf="@+id/tvFiyat" />

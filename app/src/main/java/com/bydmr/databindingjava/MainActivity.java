@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.bydmr.databindingjava.databinding.ActivityMainBinding;
 import com.bydmr.databindingjava.fragments.MainFragment;
+import com.bydmr.databindingjava.fragments.MiktarDialogFragment;
 import com.bydmr.databindingjava.fragments.UrunDetayFragment;
 import com.bydmr.databindingjava.interfaces.IMainActivity;
 import com.bydmr.databindingjava.models.Urun;
@@ -50,5 +51,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         transaction.replace(R.id.anaContainer, urunDetayFragment, "urunDetayFragment");
         transaction.addToBackStack("urunDetayFragment");
         transaction.commit();
+    }
+
+    @Override
+    public void miktarDialogBaslat() {
+
+        MiktarDialogFragment miktarDialogFragment = new MiktarDialogFragment();
+        miktarDialogFragment.show(getSupportFragmentManager(), "miktarDialogFragment");
     }
 }
