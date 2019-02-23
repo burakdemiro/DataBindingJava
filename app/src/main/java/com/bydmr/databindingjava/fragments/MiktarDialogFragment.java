@@ -35,7 +35,6 @@ public class MiktarDialogFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ((IMainActivity)getActivity()).setMiktar(Integer.parseInt(parent.getItemAtPosition(position).toString()));
-
                 getDialog().dismiss();
             }
         });

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bydmr.databindingjava.databinding.ActivityMainBinding;
+import com.bydmr.databindingjava.datas.MyPreference;
 import com.bydmr.databindingjava.fragments.MainFragment;
 import com.bydmr.databindingjava.fragments.MiktarDialogFragment;
 import com.bydmr.databindingjava.fragments.UrunDetayFragment;
@@ -69,5 +70,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
 
             urunDetayFragment.fragmentUrunDetayBinding.getUrunViewModel().setMiktar(miktar);
         }
+    }
+
+    @Override
+    public void sepeteUrunEkle(Urun urun, int miktar) {
+        MyPreference myPreference = MyPreference.getInstance(this);
+        myPreference.setSepet(urun, miktar);
     }
 }
