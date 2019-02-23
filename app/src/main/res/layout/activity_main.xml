@@ -5,6 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="sepetUrunViewModel"
+            type="com.bydmr.databindingjava.models.SepetUrunViewModel"/>
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,11 +46,12 @@
                 app:srcCompat="@drawable/ic_shopping_cart" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvSepettekiUrunSayisi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="1"
+                android:text="@{String.valueOf(sepetUrunViewModel.sepettekiUrunler.size())}"
+                tools:text="1"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
@@ -66,17 +75,74 @@
                 app:layout_constraintStart_toStartOf="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sepetTasiyici"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{sepetUrunViewModel.sepetGorunurlugu ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <TextView
+                android:id="@+id/tvUrunSayisi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{sepetUrunViewModel.tumUrunSayisiniBul()}"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvToplamTutar"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Sepette 8 ürün var Toplam:" />
+
+            <TextView
+                android:id="@+id/tvToplamTutar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{sepetUrunViewModel.tumUrunlerinFiyati()}"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUrunSayisi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvUrunSayisi"
+                app:layout_constraintTop_toTopOf="@+id/tvUrunSayisi"
+                tools:text="125 TL" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTamamla"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                android:text="Alışverişi Tamamla"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUrunSayisi" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/anaContainer"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/sepetTasiyici"
             tools:context=".MainActivity" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

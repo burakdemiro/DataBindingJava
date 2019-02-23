@@ -72,8 +72,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUrunBaslik"
-            app:resimGoster="@{urunViewModel.urun.urunResim}"
             app:requrestListener="@{urunViewModel.requestListener}"
+            app:resimGoster="@{urunViewModel.urun.urunResim}"
             tools:src="@drawable/red_lamp" />
 
         <TextView
@@ -95,7 +95,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="@{urunViewModel.urun.kampanyaliSatisVarmi() ? String.valueOf(urunViewModel.urun.kampanyaliFiyat) : String.valueOf(urunViewModel.urun.fiyat)}"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
@@ -124,23 +123,21 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{urunViewModel.urun.miktariAlveStringeCevir(urunViewModel.miktar)}"
-            tools:text="Miktar: 1"
             android:onClick="@{() -> mainInterface.miktarDialogBaslat()}"
+            android:text="@{urunViewModel.urun.miktariAlveStringeCevir(urunViewModel.miktar)}"
             app:icon="@drawable/ic_miktar_sec"
             app:layout_constraintStart_toStartOf="@+id/tvFiyat"
-            app:layout_constraintTop_toBottomOf="@+id/tvFiyat" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFiyat"
+            tools:text="Miktar: 1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSepeteEkle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Sepete Ekle"
             android:onClick="@{() -> mainInterface.sepeteUrunEkle(urunViewModel.urun, urunViewModel.miktar)}"
+            android:text="Sepete Ekle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnMiktar" />
