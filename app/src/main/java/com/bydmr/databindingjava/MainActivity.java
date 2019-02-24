@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bydmr.databindingjava.databinding.ActivityMainBinding;
 import com.bydmr.databindingjava.datas.MyPreference;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
     // Pascal versiyon adlandırma
     // activity_urunler -> ActivityUrunlerBinding üretilir
     ActivityMainBinding mainBinding;
+    boolean cikmakIcinTikla;
 
     MyPreference myPreference;
 
@@ -70,6 +73,54 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
                 }
             }
         });
+
+        mainBinding.btnTamamla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainBinding.progressBar.setVisibility(View.VISIBLE);
+                new CountDownTimer(2000, 2000) {
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        mainBinding.progressBar.setVisibility(View.INVISIBLE);
+                        sepettekiUrunleriSil();
+                    }
+                }.start();
+            }
+        });
+    }
+
+    private void sepettekiUrunleriSil() {
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreference", Context.MODE_PRIVATE);
+        Set<String> seriNumaralari = sharedPreferences.getStringSet("sepet_set", new HashSet<String>());
+
+        for (String seriNumarasi : seriNumaralari) {
+            sharedPreferences.edit().remove(seriNumarasi).apply();
+        }
+        sharedPreferences.edit().remove("sepet_set").apply();
+
+        Toast.makeText(this, "Teşekkürler", Toast.LENGTH_SHORT).show();
+
+        anaSayfayaGit();
+        sepetBilgileriniGuncelle();
+    }
+
+    private void anaSayfayaGit() {
+
+        getSupportFragmentManager().popBackStack(); // geri gelir
+        SepetFragment sepetFragment = (SepetFragment) getSupportFragmentManager().findFragmentByTag("sepetFragment");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (sepetFragment != null) {
+            transaction.remove(sepetFragment); // geri gelmek yetmez yığından kaldırır
+        }
+
     }
 
     @Override
@@ -182,7 +233,23 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
 
         sepetUrunViewModel.setSepettekiUrunler(sepetUrunleri);
         mainBinding.setSepetUrunViewModel(sepetUrunViewModel);
+    }
 
+    @Override
+    public void onBackPressed() {
 
+        int backStackFraSayisi = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (backStackFraSayisi == 0 && cikmakIcinTikla) {
+            super.onBackPressed();
+        }
+
+        if (backStackFraSayisi == 0 && !cikmakIcinTikla) {
+            Toast.makeText(this, "Çıkmak için tekrar tıklayın.", Toast.LENGTH_SHORT).show();
+            cikmakIcinTikla = true;
+        } else {
+            cikmakIcinTikla = false;
+            super.onBackPressed();
+        }
     }
 }
