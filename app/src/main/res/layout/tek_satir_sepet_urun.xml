@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="tekSepetUrun"
+            type="com.bydmr.databindingjava.models.SepetTekUrunViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/ivUrunResim"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resimGoster="@{tekSepetUrun.sepetUrun.urun.urunResim}"
+            tools:src="@drawable/blue_hat" />
+
+        <TextView
+            android:id="@+id/tvUrunBaslik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{tekSepetUrun.sepetUrun.urun.baslik}"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ivUrunResim"
+            app:layout_constraintTop_toTopOf="@+id/ivUrunResim"
+            tools:text="Mavi Şapka" />
+
+        <TextView
+            android:id="@+id/tvKampanyaliFiyat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{String.valueOf(tekSepetUrun.sepetUrun.urun.kampanyaliFiyat)}"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:visibility="@{tekSepetUrun.sepetUrun.urun.kampanyaliSatisVarmi() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toEndOf="@+id/ivUrunResim"
+            app:layout_constraintTop_toBottomOf="@+id/tvUrunBaslik"
+            tools:text="22.99" />
+
+        <TextView
+            android:id="@+id/tvMiktar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{tekSepetUrun.miktariGetir(tekSepetUrun.sepetUrun)}"
+            app:layout_constraintStart_toEndOf="@+id/ivUrunResim"
+            app:layout_constraintTop_toBottomOf="@+id/tvNormalFiyat"
+            tools:text="Miktar: 1" />
+
+        <TextView
+            android:id="@+id/tvNormalFiyat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{String.valueOf(tekSepetUrun.sepetUrun.urun.fiyat)}"
+            app:layout_constraintStart_toEndOf="@+id/tvKampanyaliFiyat"
+            app:layout_constraintTop_toBottomOf="@+id/tvUrunBaslik"
+            tools:text="25.99" />
+
+        <ImageView
+            android:id="@+id/ivEkle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:tint="@color/colorAccent"
+            android:onClick="@{() -> tekSepetUrun.miktariArtir(context)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvUrunBaslik"
+            app:srcCompat="@drawable/ic_ekle" />
+
+        <ImageView
+            android:id="@+id/ivCikar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:tint="@color/colorAccent"
+            android:onClick="@{() -> tekSepetUrun.miktariAzalt(context)}"
+            app:layout_constraintBottom_toBottomOf="@+id/ivUrunResim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_cikar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

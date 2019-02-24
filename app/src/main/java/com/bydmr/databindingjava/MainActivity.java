@@ -119,11 +119,53 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         mainBinding.getSepetUrunViewModel().setSepetGorunurlugu(gorunurluk);
     }
 
+    @Override
+    public void sepetiGuncelle(Urun urun, int miktar) {
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreference", Context.MODE_PRIVATE);
+
+        int suankiMiktar = sharedPreferences.getInt(String.valueOf(urun.getSeriNumarasi()), 0);
+        sharedPreferences.edit().putInt(String.valueOf(urun.getSeriNumarasi()), suankiMiktar + miktar).apply();
+        sepetBilgileriniGuncelle();
+    }
+
+    @Override
+    public void urunuSepettenSil(SepetUrun sepetUrun) {
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreference", Context.MODE_PRIVATE);
+        sharedPreferences.edit().remove(String.valueOf(sepetUrun.getUrun().getSeriNumarasi())).apply();
+
+        Set<String> seriNumaralari = sharedPreferences.getStringSet("sepet_set", new HashSet<String>());
+
+        if (seriNumaralari.size() == 1) {
+            sharedPreferences.edit().remove("sepet_set").apply();
+        } else {
+            seriNumaralari.remove(String.valueOf(sepetUrun.getUrun().getSeriNumarasi()));
+            sharedPreferences.edit().putStringSet("sepet_set", seriNumaralari).apply();
+        }
+        sepetBilgileriniGuncelle();
+
+        SepetFragment sepetFragment = (SepetFragment) getSupportFragmentManager().findFragmentByTag("sepetFragment");
+
+        if (sepetFragment != null) {
+
+            sepetFragment.sepetListesiniGuncelle();
+        }
+    }
+
     public void sepetBilgileriniGuncelle() {
         SharedPreferences sharedPreferences = this.getSharedPreferences("myPreference", Context.MODE_PRIVATE);
         Set<String> seriNumaralari = sharedPreferences.getStringSet("sepet_set", new HashSet<String>());
 
+        boolean sepetAcikMiydi = false;
+        try {
+            sepetAcikMiydi = mainBinding.getSepetUrunViewModel().isSepetGorunurlugu();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         SepetUrunViewModel sepetUrunViewModel = new SepetUrunViewModel();
+        sepetUrunViewModel.setSepetGorunurlugu(sepetAcikMiydi);
 
         List<SepetUrun> sepetUrunleri = new ArrayList<>();
         Urunler urunler = new Urunler();
@@ -140,5 +182,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
 
         sepetUrunViewModel.setSepettekiUrunler(sepetUrunleri);
         mainBinding.setSepetUrunViewModel(sepetUrunViewModel);
+
+
     }
 }

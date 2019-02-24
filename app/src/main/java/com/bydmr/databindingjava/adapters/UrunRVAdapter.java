@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bydmr.databindingjava.R;
-import com.bydmr.databindingjava.databinding.TekUrunBinding;
+import com.bydmr.databindingjava.databinding.TekSatirUrunBinding;
 import com.bydmr.databindingjava.interfaces.IMainActivity;
 import com.bydmr.databindingjava.models.Urun;
 import com.bydmr.databindingjava.models.UrunViewModel;
@@ -34,7 +34,7 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        TekUrunBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.tek_urun, parent, false);
+        TekSatirUrunBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.tek_satir_urun, parent, false);
 
         return new MyViewHolder(binding.getRoot());
     }
@@ -57,7 +57,7 @@ public class UrunRVAdapter extends RecyclerView.Adapter<UrunRVAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TekUrunBinding binding;
+        TekSatirUrunBinding binding;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

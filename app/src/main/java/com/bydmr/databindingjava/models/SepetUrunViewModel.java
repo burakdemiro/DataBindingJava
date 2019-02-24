@@ -1,5 +1,7 @@
 package com.bydmr.databindingjava.models;
 
+import android.util.Log;
+
 import com.bydmr.databindingjava.BR;
 
 import java.util.List;
